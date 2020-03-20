@@ -170,7 +170,7 @@ xlabel("Echantillons");
 ylabel("Amplitude");
 title("Différence entre les 2 signaux (sans détails)")
 
-%% Ondelettes biorthogonales 
+%% Question 3 - Ondelettes biorthogonales 
 
 
     %Longueur de 128 échantillons
@@ -287,5 +287,5 @@ title("Différence entre les 2 signaux (sans détails)")
     ylabel("Amplitude");
     title("Différence entre les 2 signaux (sans détails) pour 9/7")
     
-    
+    %% Question 4 - Compression d'une image
     
