@@ -45,3 +45,64 @@ ylabel("Amplitude");
 
 
 %% Question 2.3
+
+e_surech = zeros(1,length(e_conv));
+w_surech = zeros(1,length(e_conv));
+%Insertion de zéros
+for i=1:1027
+    if mod(i,2) ==1  % Si c'est impair
+        e_surech(i)=e1((i+1)/2);
+    else
+        e_surech(i)=0;
+    end
+end
+
+for i=1:1027
+    if mod(i,2) ==1  % Si c'est impair
+        w_surech(i)=w1((i+1)/2);
+    else
+        w_surech(i)=0;
+    end
+end
+
+e_surech_conv = conv(e_surech,h);
+w_surech_conv = conv(w_surech,g);
+
+sig2 = e_surech_conv + w_surech_conv;
+sig2 = sig2(4:length(sig2)-3);
+
+erreur = sig - sig2;
+
+figure(4);
+subplot(1,3,1);
+plot(e_surech_conv);
+xlabel("Echantillons");
+ylabel("Amplitude");
+title("e suréchantilloné");
+subplot(1,3,2);
+plot(w_surech_conv);
+xlabel("Echantillons");
+ylabel("Amplitude");
+title("w suréchantilloné")
+subplot(1,3,3);
+plot(sig2);
+xlabel("Echantillons");
+ylabel("Amplitude");
+title("Différence entre la reconstruction et le signal d'origine")
+
+figure(5);
+subplot(1,3,1);
+plot(sig);
+xlabel("Echantillons");
+ylabel("Amplitude");
+title("Signal");
+subplot(1,3,2);
+plot(sig2);
+xlabel("Echantillons");
+ylabel("Amplitude");
+title("Signal reconstitué")
+subplot(1,3,3);
+plot(erreur);
+xlabel("Echantillons");
+ylabel("Amplitude");
+title("Erreur entre la reconstitution et le signal d'origine")
