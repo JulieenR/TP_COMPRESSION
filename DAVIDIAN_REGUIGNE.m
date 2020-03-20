@@ -1,3 +1,5 @@
+%%Question 2.1
+
 clear all;
 close all;
 load PieceRegSig;
@@ -13,3 +15,4 @@ w = (sig(J)-sig(I))/2;
 %figure(3);
 subplot(1,2,2);plot(w);
 
+%% Ques
