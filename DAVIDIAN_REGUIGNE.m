@@ -149,27 +149,110 @@ title("Signal Détail obtenu à partir du Signal initial")
     
 
 figure(7);
-subplot(1,3,1);
+subplot(1,4,1);
 plot(x);
 xlabel("Echantillons");
 ylabel("Amplitude");
 title("Signal initial");
-subplot(1,3,2);
+subplot(1,4,2);
 plot(xreconstruit);
 xlabel("Echantillons");
 ylabel("Amplitude");
 title("Signal reconstruit")
-subplot(1,3,3);
+subplot(1,4,3);
 plot(difference);
 xlabel("Echantillons");
 ylabel("Amplitude");
-title("Signal Détail obtenu à partir du Signal initial")
+title("Différence entre les 2 signaux (avec détails)")
+subplot(1,4,4);
+plot(x - approximationreconstruit);
+xlabel("Echantillons");
+ylabel("Amplitude");
+title("Différence entre les 2 signaux (sans détails)")
 
 %% Ondelettes biorthogonales 
 
-    %[rh, rg, h, g] = GetFiltres(...);
+
+    %Longueur de 128 échantillons
+    [rh, rg, h, g] = GetFiltres('5/3');
+    x = SignauxTypiques('sinusDiscontinu', 128);
     
-  %  x = SignauxTypiques(...);
+    % pour les ondelettes biorthogonales (longueur impaire), 
+    % utiliser type='a_b' ou 'd_b' (a: approximation, d: detail, b: biorthogonales
+    approximation = DownFilter(x,rh,'a_b');
+    detail = DownFilter(x,rg,'d_b');
+    
+    % pour les ondelettes biorthogonales (longueur impaire), 
+    % utiliser type='a_b' ou 'd_b' (a: approximation, d: detail, b: biorthogonales
+    approximationreconstruit = UpFilter(approximation,h,'a_o');
+    detailreconstruit = UpFilter(detail,g,'d_b');
+    
+    %TODO
+    x2 = approximationreconstruit + detailreconstruit;
+    erreur = x-x2;
+    
+    figure(8);
+    subplot(1,3,1);
+    plot(x2);
+    xlabel("Echantillons");
+    ylabel("Amplitude");
+    title("Signal reconstruit")
+    
+    subplot(1,3,2);
+    plot(erreur);
+    xlabel("Echantillons");
+    ylabel("Amplitude");
+    title("Différence entre les 2 signaux (avec détails)")
+    
+    subplot(1,3,3);
+    plot(x - detailreconstruit);
+    xlabel("Echantillons");
+    ylabel("Amplitude");
+    title("Différence entre les 2 signaux (sans détails)")
+    
+    %Longueur de 64 échantillons
+ 
+    
+    [rh, rg, h, g] = GetFiltres('5/3');
+    x = SignauxTypiques('sinusDiscontinu', 64);
+    
+    % pour les ondelettes biorthogonales (longueur impaire), 
+    % utiliser type='a_b' ou 'd_b' (a: approximation, d: detail, b: biorthogonales
+    approximation = DownFilter(x,rh,'a_b');
+    detail = DownFilter(x,rg,'d_b');
+    
+    % pour les ondelettes biorthogonales (longueur impaire), 
+    % utiliser type='a_b' ou 'd_b' (a: approximation, d: detail, b: biorthogonales
+    approximationreconstruit = UpFilter(approximation,h,'a_o');
+    detailreconstruit = UpFilter(detail,g,'d_b');
+    
+    %TODO
+    x2 = approximationreconstruit + detailreconstruit;
+    erreur = x-x2;
+    
+    figure(8);
+    subplot(1,3,1);
+    plot(x2);
+    xlabel("Echantillons");
+    ylabel("Amplitude");
+    title("Signal reconstruit")
+    
+    subplot(1,3,2);
+    plot(erreur);
+    xlabel("Echantillons");
+    ylabel("Amplitude");
+    title("Différence entre les 2 signaux (avec détails)")
+    
+    subplot(1,3,3);
+    plot(x - detailreconstruit);
+    xlabel("Echantillons");
+    ylabel("Amplitude");
+    title("Différence entre les 2 signaux (sans détails)")
+
+    
+    %Longueur de 128 échantillons
+    [rh, rg, h, g] = GetFiltres('9/7');
+    x = SignauxTypiques('sinusDiscontinu', 128);
     
     % pour les ondelettes biorthogonales (longueur impaire), 
     % utiliser type='a_b' ou 'd_b' (a: approximation, d: detail, b: biorthogonales
@@ -182,3 +265,27 @@ title("Signal Détail obtenu à partir du Signal initial")
     detailreconstruit = UpFilter(detail,g,'d_b');
     
     %TODO
+    x2 = approximationreconstruit + detailreconstruit;
+    erreur = x-x2;
+    
+    figure(8);
+    subplot(1,3,1);
+    plot(x2);
+    xlabel("Echantillons");
+    ylabel("Amplitude");
+    title("Signal reconstruit")
+    
+    subplot(1,3,2);
+    plot(erreur);
+    xlabel("Echantillons");
+    ylabel("Amplitude");
+    title("Différence entre les 2 signaux (avec détails)")
+    
+    subplot(1,3,3);
+    plot(x - detailreconstruit);
+    xlabel("Echantillons");
+    ylabel("Amplitude");
+    title("Différence entre les 2 signaux (sans détails)")
+    
+    
+    

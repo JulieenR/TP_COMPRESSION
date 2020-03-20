@@ -108,7 +108,7 @@ ylabel("Amplitude");
 title("Erreur entre la reconstitution et le signal d'origine")
 
 
-%% Question 3 - Ondelettes orthogonales %%
+%% Question 3 - Ondelettes orthogonales 
 
     [rh, rg, h, g] = GetFiltres('Haar');
     x = SignauxTypiques('ligneLena', 256);
@@ -128,6 +128,7 @@ title("Erreur entre la reconstitution et le signal d'origine")
     detailreconstruit = UpFilter(detail,g,'d_o');
     xreconstruit = approximationreconstruit + detailreconstruit;
     
+    difference = x - xreconstruit;
     
 figure(6);
 subplot(1,3,1);
@@ -154,21 +155,21 @@ xlabel("Echantillons");
 ylabel("Amplitude");
 title("Signal initial");
 subplot(1,3,2);
-plot(approximation);
+plot(xreconstruit);
 xlabel("Echantillons");
 ylabel("Amplitude");
-title("Signal Approximation obtenu à partir du Signal initial")
+title("Signal reconstruit")
 subplot(1,3,3);
-plot(detail);
+plot(difference);
 xlabel("Echantillons");
 ylabel("Amplitude");
-title("Signal Détail obtenu à partir du Signal initial")
+title("Différence enre")
 
-%% Ondelettes biorthogonales %% %% 
+%% Ondelettes biorthogonales 
 
-    [rh, rg, h, g] = GetFiltres(...);
+    %[rh, rg, h, g] = GetFiltres(...);
     
-    x = SignauxTypiques(...);
+  %  x = SignauxTypiques(...);
     
     % pour les ondelettes biorthogonales (longueur impaire), 
     % utiliser type='a_b' ou 'd_b' (a: approximation, d: detail, b: biorthogonales
