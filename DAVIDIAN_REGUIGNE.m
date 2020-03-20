@@ -202,13 +202,13 @@ title("Différence entre les 2 signaux (sans détails)")
     plot(erreur);
     xlabel("Echantillons");
     ylabel("Amplitude");
-    title("Différence entre les 2 signaux (avec détails)")
+    title("Différence entre les 2 signaux (avec détails) pour 5/3")
     
     subplot(1,3,3);
     plot(x - detailreconstruit);
     xlabel("Echantillons");
     ylabel("Amplitude");
-    title("Différence entre les 2 signaux (sans détails)")
+    title("Différence entre les 2 signaux (sans détails) pour 5/3")
     
     %Longueur de 64 échantillons
  
@@ -241,16 +241,16 @@ title("Différence entre les 2 signaux (sans détails)")
     plot(erreur);
     xlabel("Echantillons");
     ylabel("Amplitude");
-    title("Différence entre les 2 signaux (avec détails)")
+    title("Différence entre les 2 signaux (avec détails) pour 5/3")
     
     subplot(1,3,3);
     plot(x - detailreconstruit);
     xlabel("Echantillons");
     ylabel("Amplitude");
-    title("Différence entre les 2 signaux (sans détails)")
+    title("Différence entre les 2 signaux (sans détails) pour 5/3")
 
     
-    %Longueur de 128 échantillons
+    %Pour 9/7
     [rh, rg, h, g] = GetFiltres('9/7');
     x = SignauxTypiques('sinusDiscontinu', 128);
     
@@ -279,13 +279,13 @@ title("Différence entre les 2 signaux (sans détails)")
     plot(erreur);
     xlabel("Echantillons");
     ylabel("Amplitude");
-    title("Différence entre les 2 signaux (avec détails)")
+    title("Différence entre les 2 signaux (avec détails) pour 9/7")
     
     subplot(1,3,3);
     plot(x - detailreconstruit);
     xlabel("Echantillons");
     ylabel("Amplitude");
-    title("Différence entre les 2 signaux (sans détails)")
+    title("Différence entre les 2 signaux (sans détails) pour 9/7")
     
     
     
