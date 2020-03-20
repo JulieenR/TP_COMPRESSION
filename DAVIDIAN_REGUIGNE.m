@@ -15,4 +15,4 @@ w = (sig(J)-sig(I))/2;
 %figure(3);
 subplot(1,2,2);plot(w);
 
-%% Ques
+%% Question
