@@ -71,14 +71,78 @@ w_surech_conv = conv(w_surech,g);
 sig2 = e_surech_conv + w_surech_conv;
 sig2 = sig2(4:length(sig2)-3);
 
+erreur = sig - sig2;
 
 figure(4);
-subplot(1,2,1);
+subplot(1,3,1);
 plot(e_surech_conv);
 xlabel("Echantillons");
 ylabel("Amplitude");
-subplot(1,2,2)
+title("e suréchantilloné");
+subplot(1,3,2);
 plot(w_surech_conv);
-subplot(1,2,3)
+xlabel("Echantillons");
+ylabel("Amplitude");
+title("w suréchantilloné")
+subplot(1,3,3);
 plot(sig2);
+xlabel("Echantillons");
+ylabel("Amplitude");
+title("Différence entre la reconstruction et le signal d'origine")
 
+figure(5);
+subplot(1,3,1);
+plot(sig);
+xlabel("Echantillons");
+ylabel("Amplitude");
+title("Signal");
+subplot(1,3,2);
+plot(sig2);
+xlabel("Echantillons");
+ylabel("Amplitude");
+title("Signal reconstitué")
+subplot(1,3,3);
+plot(erreur);
+xlabel("Echantillons");
+ylabel("Amplitude");
+title("Erreur entre la reconstitution et le signal d'origine")
+
+
+%% Question 3 - Ondelettes orthogonales %%
+
+    [rh, rg, h, g] = GetFiltres('Haar');
+    x = SignauxTypiques('ligneLena');
+ 
+    figure;
+    plot(x);
+    title('Signal initial');
+    
+    % pour les ondelettes orthogonales (longueur paire), utiliser type
+    % ='a_o' ou 'd_o' (a: approximation, d: detail, o: orthogonales
+    approximation = DownFilter(x,rh,'a_o');
+    detail = DownFilter(x,rg,'d_o');
+
+    % pour les ondelettes orthogonales (longueur paire), utiliser type
+    % ='a_o' ou 'd_o' 
+    approximationreconstruit = UpFilter(approximation,h,'a_o');
+    detailreconstruit = UpFilter(detail,g,'d_o');
+
+    %TODO
+
+%% Ondelettes biorthogonales %% %% 
+
+    [rh, rg, h, g] = GetFiltres(...);
+    
+    x = SignauxTypiques(...);
+    
+    % pour les ondelettes biorthogonales (longueur impaire), 
+    % utiliser type='a_b' ou 'd_b' (a: approximation, d: detail, b: biorthogonales
+    approximation = DownFilter(x,rh,'a_b');
+    detail = DownFilter(x,rg,'d_b');
+    
+    % pour les ondelettes biorthogonales (longueur impaire), 
+    % utiliser type='a_b' ou 'd_b' (a: approximation, d: detail, b: biorthogonales
+    approximationreconstruit = UpFilter(approximation,h,'a_b');
+    detailreconstruit = UpFilter(detail,g,'d_b');
+    
+    %TODO
