@@ -288,4 +288,170 @@ title("Différence entre les 2 signaux (sans détails)")
     title("Différence entre les 2 signaux (sans détails) pour 9/7")
     
     %% Question 4 - Compression d'une image
+    % img = double(imread('Roue.bmp'));
+img = double(imread('lena.png'));
+photo = img(:,:,1);
+[N,L] =  size(photo);
+
+
+figure(9);
+subplot(1,3,1);
+colormap(gray);
+imagesc(photo);axis image; 
+title('Originale');
+
+photo1 = zeros(N,N);
+photo2 = zeros(N,N);
+
+
+% decomposition des lignes
+[rh, rg, h, g] = GetFiltres('9/7');
+for(i=1:N)
+    ligne = photo(i,:);
+
+    approximation = DownFilter(ligne,rh,'a_h');
+    detail = DownFilter(ligne,rg,'d_b');
+
+    photo1(i,(1:(N/2)))= approximation;
+    photo1(i,((N/2)+1:end)) = detail;
+end
+
+subplot(1,3,2);
+colormap(gray);
+imagesc(abs(photo1));axis image; title('Decompose 1');
+
+ 
+% decomposition des colonnes
+
+for(i=1:N)
+    colonne = photo1(:,i)';
+	approximationc = DownFilter(colonne,rh,'a_h');
+    detailc = DownFilter(colonne,rg,'d_b');
+    photo2((1:(N/2)),i)= approximationc;
+    photo2(((N/2)+1:end),i) = detailc;
+end
+
+subplot(1,3,3);
+colormap(gray);
+imagesc(abs(photo2)); axis image; title('Decompose 2');
+%On obtient une photo en 4 parties
+
+% Reconstruction de l'image (à partir de celle de photo2)
+
+[M,N] = size(photo2);
+[rh, rg, h, g] = GetFiltres('9/7');
+f1= zeros(N,N);
+f2 = zeros(N,N);
+p1 = transpose(photo2(1:(N/2),:));
+p2 = transpose(photo2((N/2)+1:end,:));
+
+for(i=1:N)
+   ligne = p1(i,:);
+   f1(i,1:N)=UpFilter(ligne,h,'a_h');
+end
+
+filtre1 = transpose(f1);
+
+for(i=1:N)
+   ligne = p2(i,:);
+   f2(i,1:N)=UpFilter(ligne,g,'d_b');
+end
+
+filtre2 = transpose(f2);
+photo3 = filtre1 + filtre2; 
+
+%Image en 2 parties
+figure(10);
+colormap(gray);
+imagesc(abs(photo3));
+
+%2ème partie
+
+f3= zeros(N,N);
+f4 = zeros(N,N);
+p3 = photo3(:,1:(N/2));
+p4 = photo3(:,(N/2)+1:end);
+
+for(i=1:N)
+   ligne = p3(i,:);
+   f3(i,1:N)=UpFilter(ligne,h,'a_h');
+end
+
+for(i=1:N)
+   ligne = p4(i,:);
+   f4(i,1:N)=UpFilter(ligne,g,'d_b');
+end
+
+
+photo4 = f3 + f4; 
+%Image reconstituée
+figure(11);
+colormap(gray);
+imagesc(abs(photo4));
+
+%Reconstruction et Compression en supprimant la composante v11
+photo_abime = photo2;
+for(i =((N/2)+1):N)
+    for (j =((N/2)+1):N)
+        photo_abime(i,j) = 0;
+    end
+end
     
+[M,N] = size(photo_abime);
+[rh, rg, h, g] = GetFiltres('9/7');
+f1= zeros(N,N);
+f2 = zeros(N,N);
+p1 = transpose(photo_abime(1:(N/2),:));
+p2 = transpose(photo_abime((N/2)+1:end,:));
+
+for(i=1:N)
+   ligne = p1(i,:);
+   f1(i,1:N)=UpFilter(ligne,h,'a_h');
+end
+
+filtre1 = transpose(f1);
+
+for(i=1:N)
+   ligne = p2(i,:);
+   f2(i,1:N)=UpFilter(ligne,g,'d_b');
+end
+
+filtre2 = transpose(f2);
+photo3 = filtre1 + filtre2; 
+
+
+f3= zeros(N,N);
+f4 = zeros(N,N);
+p3 = photo3(:,1:(N/2));
+p4 = photo3(:,(N/2)+1:end);
+
+for(i=1:N)
+   ligne = p3(i,:);
+   f3(i,1:N)=UpFilter(ligne,h,'a_h');
+end
+
+for(i=1:N)
+   ligne = p4(i,:);
+   f4(i,1:N)=UpFilter(ligne,g,'d_b');
+end
+
+
+photo5 = f3 + f4; 
+%Image reconstituée
+figure(12);
+colormap(gray);
+imagesc(abs(photo5));
+
+%Calcul du PSNR
+MSE = 0;
+for (i=1:N)
+    for (j=1:N)
+        MSE = MSE + (cast(img(i,j),'double')-photo5(i,j))^2;
+    end
+end
+
+MSE = MSE/(N*N);
+PSNR = 10*log(255*255 /MSE);
+
+
+
