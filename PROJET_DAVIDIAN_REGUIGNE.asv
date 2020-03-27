@@ -1,0 +1,15 @@
+%% Réalisation d'un encodeur / décodeur JPEG  simplifié
+
+%% Encodage d'un data unit
+% On rajoute des lignes et des colonnes sur l'image d'origine si ce n'est
+% pas un multiple de 8.
+
+%image de taille M x N
+M =10;
+N =12;
+nb_lignes = mod(M,8);
+nb_colonnes = mod(N,8);
+
+while(m ~= 0)
+    ligne = image_origine(M,:);
+    image_redimensionnee = [image
