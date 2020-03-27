@@ -6,10 +6,35 @@
 
 %image de taille M x N
 M =10;
-N =12;
-nb_lignes = mod(M,8);
-nb_colonnes = mod(N,8);
+N =16;
+image_origine = zeros(M,N)
 
-while(m ~= 0)
-    ligne = image_origine(M,:);
-    image_redimensionnee = [image
+nb_lignes = mod(8- mod(M,8),8);
+nb_colonnes =mod(8-  mod(N,8),8);
+
+ligne_ajoute = image_origine(M,:);
+colonne_ajoute = image_origine(:,N);
+image_redimensionnee = image_origine;
+for(i=1:nb_lignes)
+    image_redimensionnee = [image_redimensionnee;ligne_ajoute];
+end
+
+for(i=1:nb_colonnes)
+    image_redimensionnee = [image_redimensionnee,colonne_ajoute];
+end
+
+[Mbis,Nbis] = size (image_redimensionnee);
+
+% 2.1 : Centrage 
+image_centree = image_redimensionnee -128;
+
+% 2.2 : Transformée en cosinus sur chaque bloc 8x8 de l'image
+
+nb_bloc_ligne = Mbis /8;
+nb_bloc_colonne = Nbis /8;
+for(i=1:nb_bloc_ligne)
+    for(j=1:nb_bloc_colonne)
+        bloc = image_centree(1+ 8*(i-1):8*i,1+ 8*(j-1):8*j);
+        disp(bloc
+    end
+end

@@ -23,3 +23,19 @@ for(i=1:nb_colonnes)
     image_redimensionnee = [image_redimensionnee,colonne_ajoute];
 end
 
+[Mbis,Nbis] = size (image_redimensionnee);
+
+% 2.1 : Centrage 
+image_centree = image_redimensionnee -128;
+
+% 2.2 : Transformée en cosinus sur chaque bloc 8x8 de l'image
+
+nb_bloc_ligne = Mbis /8;
+nb_bloc_colonne = Nbis /8;
+for(i=1:nb_bloc_ligne)
+    for(j=1:nb_bloc_colonne)
+        bloc = image_centree(1+ 8*(i-1):8*i,1+ 8*(j-1):8*j);
+        dct_bloc = dctmtx(8) * size(bloc) * dctmtx(8)';
+        disp(dct_bloc);
+    end
+end
