@@ -42,7 +42,7 @@ nb_bloc_colonne = Nbis /8;
 for(i=1:nb_bloc_ligne)
     for(j=1:nb_bloc_colonne)
         bloc = image_centree(1+ 8*(i-1):8*i,1+ 8*(j-1):8*j);
-        dct_bloc = dctmtx(8) * size(bloc) * dctmtx(8)';
+        dct_bloc = dctmtx(8) * bloc * dctmtx(8)';
         disp(dct_bloc);
     end
 end
