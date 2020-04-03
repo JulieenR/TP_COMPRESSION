@@ -1,6 +1,6 @@
-function [y] = encoding_rlc(x)
+function [img_out] = code_rlc(x)
     dim = size(x);
-    y = {};
+    img_out = {};
     
     for i = 1:dim(1)
         
@@ -38,7 +38,7 @@ function [y] = encoding_rlc(x)
         
         
         k=1;
-        yk = [];
+        img_outk = [];
         for j=1:length(breakconstrue)
             if (j==1)
                 ind = 1;
@@ -48,8 +48,8 @@ function [y] = encoding_rlc(x)
             list1 = x(i, (ind):(breakconstrue(j)-1));
             k=breakconstrue(j)-1;
             listk = horzcat(list1, 257, nocz(j));
-            yk = [yk, listk];
-        y{i} = yk;
+            img_outk = [img_outk, listk];
+        img_out{i} = img_outk;
         
         end
         

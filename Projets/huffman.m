@@ -1,19 +1,19 @@
-function [y, dico] = huffman(x)
-    dim = size(x);
+function [image_out, dict] = huffman(image_in)
+    dim = size(image_in);
     
-    x_flatten= zeros(1,64*1024);
+    image_in_flatten= zeros(1,64*1024);
     for i = 1:dim(2)
-        x_flatten = horzcat(x_flatten, x{i});
+        image_in_flatten = horzcat(image_in_flatten, image_in{i});
     end
-    val = unique(x_flatten);
-    cnt = histc(x_flatten, val)./length(x_flatten);
+    val = unique(image_in_flatten);
+    cnt = histc(image_in_flatten, val)./length(image_in_flatten);
     
-    dico = huffmandict(val, cnt);
+    dict = huffmandict(val, cnt);
     
     for i = 1:dim(2)
 
-        yk = huffmanenco(x{i}, dico);
-        y{i} = transpose(yk);
+        image_outk = huffmanenco(image_in{i}, dict);
+        image_out{i} = transpose(image_outk);
         
     end
         

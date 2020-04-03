@@ -1,12 +1,12 @@
-function[y]=dequantifier(x,q)
-    dim = size(x);
+function[image_out]=deQuantifier(image_in,Q)
+    [M,N,nb_blocs] = size(image_in);
     
-    for i = 1:dim(3)
-        xtmp = x(:,:,i);
+    for i = 1:nb_blocs
+        image_intmp = image_in(:,:,i);
         if i==1
-            y = xtmp.*q;
+            image_out = image_intmp.*Q;
         else    
-            y(:,:,i) = xtmp.*q;
+            image_out(:,:,i) = image_intmp.*Q;
         end
     end
 end

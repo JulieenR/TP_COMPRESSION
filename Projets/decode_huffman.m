@@ -1,10 +1,9 @@
-function [y] = decode_huffman(x, xdico)
+function [image_out] = decode_huffman(x, dico)
     
-    dim = size(x);
-    
-    for i = 1:dim(2)
-        yk = huffmandeco(x{i}, xdico);
-        y{i} = yk;
+    [a,nb_blocs] = size(x);
+    for i = 1:nb_blocs
+        image_outk = huffmandeco(x{i}, dico);
+        image_out{i} = image_outk;
     end
     
 end

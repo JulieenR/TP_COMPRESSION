@@ -1,21 +1,8 @@
-function [y] = decode_dct(x)
-%     D = dctmtx(8);
-%     D = inv(D);
-%     
-%     dim = size(x);
-%     
-%     for i = 1:dim(3)
-%         xtmp = x(:,:,i);
-%         if i==1
-%             y = D'*xtmp*D;
-%         else    
-%             y(:,:,i) = D'*xtmp*D;
-%         end
-%     end
+function [image_out] = decode_dct(image_in)
 
     D = dctmtx(8);
-    y = zeros(8, 8, 1024);
-    for i=1:length(x)
-        y(:, :, i) = inv(D)*x(:, :, i)*inv(transpose(D));
+    image_out = zeros(8, 8, 1024);
+    for i=1:length(image_in)
+        image_out(:, :, i) = inv(D)*image_in(:, :, i)*inv(transpose(D));
     end
 end

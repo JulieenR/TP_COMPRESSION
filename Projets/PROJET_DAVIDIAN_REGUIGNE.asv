@@ -10,7 +10,7 @@ image_origine = double(imread("lena.bmp"));
 %On décompose l'image en bloc de 8x8. Pour une image de 256*256, on aura
 %1024 blocs de 8x8
 
-image_redimensionnee = bloc(image_origine);
+image_redimensionnee = bloc(img);
 [Mbis,Nbis] = size (image_redimensionnee);
 
 
@@ -54,16 +54,16 @@ image_decodee_rlc = decode_rlc(image_decodee_huffman);
 
 image_decodee_zigzag = decode_zigzag(image_decodee_rlc);
 
-image_dequantifiee = dequantifier(image_decodee_zigzag, Q);
+image_dequantifiee = dequantifier(image_decodee_zigzag);
 
 image_inv_dct = decode_dct(image_dequantifiee);
 
 image_decentree = decentrage(image_inv_dct);
 
-image_decompressee = deblocs(image_decentree);
+image_origine = transpose(deblocs(image_decentree));
 
 figure(1);
-imshow(int8(transpose(image_decompressee)));
+imshow(int8(transpose(image_origine)));
 figure(2);
-imshow(int8(image_origine))
+imshow(int8(img))
 
