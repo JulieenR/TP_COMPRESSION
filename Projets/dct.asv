@@ -1,7 +1,7 @@
-function [y] = dctblocs(x,n) 
-    D = dctmtx(n);
+function [image_out] = dct(image_in) 
+    D = dctmtx(8);
     
-    dim = size(x);
+    dim = size(image_in);
     
     for i = 1:dim(3)
         xtmp = x(:,:,i);

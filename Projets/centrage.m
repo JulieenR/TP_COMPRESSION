@@ -1,6 +1,3 @@
-% Etape nécessaire car transformée en cos après : On centre pour éviter
-% d'avoir une composante continue parasite.
-
-function [y] = centrage(x)
-    y = x - 128;
+function [image_out] = centrage(image_in)
+    image_out = image_in - 128;
 end
