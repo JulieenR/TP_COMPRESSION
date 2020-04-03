@@ -27,4 +27,11 @@ for i=1:128:1024
     %imagesc(image_dct(:,:,i))
 end
 
-%2.3  : Création d'une matrice RGB
+%2.3  : Création d'une matrice Q
+% -1 pour la matrice Q par défaut pour RGB
+% Entre 1 et 100 pour le seuil
+
+Q = genMatQ(-1);
+
+%
+image_q = calcQuantification(image_dct,Q);
